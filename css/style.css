@@ -9,14 +9,19 @@ body, iframe {
     box-sizing: border-box;
 }
 
-a, a:visited, a:hover {
+a, a:visited {
     color: white;
     text-decoration: none;
 }
 
+a:hover {
+    text-shadow: 0 0 100px rgba(0, 0, 0, 1);
+}
+
 header,
 .project-wrapper, 
-#site-title { text-align: center; }
+#site-title,
+#site-footer { text-align: center; }
 
 header {
     width: 100%;
@@ -24,20 +29,20 @@ header {
     background-color: rgba(255, 255, 255, 1);
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 3;
 }
 
 #site-title,
-.project-label{
+#site-footer,
+.project-label {
     font-family: arial, sans-serif;
     font-weight: lighter;
-    letter-spacing: -1.05;
+    letter-spacing: -1.0501
 }
 
 .project-label {
     padding: 20px;
-    color: rgba(255, 255, 255, 1);
-    text-shadow: 0 0 4px rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);    
     letter-spacing: 0;
     position: absolute;
     width: 100%;
@@ -50,7 +55,7 @@ header {
     width: 80%;
     height: 80%;
     position: relative;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 255, 0.9);
     top: 58px;
 }
 
