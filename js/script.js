@@ -60,7 +60,6 @@ var choose_form = function() {
         circle();
         x--;
     }
-    console.log(x);
 }
 
 var draw = function() {
@@ -71,7 +70,7 @@ var draw = function() {
     bg.closePath();
 }
 
-window.onload = document.body.onclick = function() {
+window.onload = function() {
     find_dimens();
     draw();
 }
@@ -79,13 +78,10 @@ window.onload = document.body.onclick = function() {
 window.onresize = function() {
     bg.canvas.width = window.innerWidth;
     bg.canvas.height = window.innerHeight;
-    this.onmouseup = function() {
-        find_dimens();
-        draw();
-    }
+    bg.clearRect(0, 0, w, h);
 }
 
 setInterval(function() {
     find_dimens();
     draw();
-}, 2000)
+}, 3000)

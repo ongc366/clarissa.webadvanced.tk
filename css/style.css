@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: arial, sans-serif;
+    font-family: helvetica, sans-serif;
     font-weight: lighter;
     letter-spacing: -1.05;
     text-decoration: none;
@@ -16,10 +16,6 @@
 body {
     position: relative;
     width: 100%;
-    background: -webkit-linear-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.8)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.8)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.8)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.8)); /* Standard syntax */
 }
 
 a:hover {
@@ -41,6 +37,11 @@ a:hover {
     margin-top: -62px;
     position: fixed;
     z-index: 2;
+    border-bottom: solid 2px black;
+    background: -webkit-linear-gradient(transparent, rgba(255, 255, 255, 0.4) 95%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(transparent, rgba(255, 255, 255, 0.4) 95%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(transparent, rgba(255, 255, 255, 0.4) 95%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.4) 95%); /* Standard syntax */
 }
 
 #main-content {
@@ -57,6 +58,14 @@ iframe {
     width: 640px;
     height: 480px;
     border: 2px solid rgba(0, 0, 0, 1);
+}
+
+#footer {
+    border-top: solid 2px black;
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0.4) 5%, transparent); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(255, 255, 255, 0.4) 5%, transparent); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(255, 255, 255, 0.4) 5%, transparent); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(255, 255, 255, 0.4) 5%, transparent); /* Standard syntax */
 }
 
 canvas {
@@ -77,5 +86,9 @@ canvas {
     iframe {
         width: 340px;
         height: 180px;
+    }
+    
+    canvas {
+        display: none;
     }
 }
