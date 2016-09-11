@@ -79,6 +79,13 @@ window.onload = document.body.onclick = function() {
 window.onresize = function() {
     bg.canvas.width = window.innerWidth;
     bg.canvas.height = window.innerHeight;
+    this.onmouseup = function() {
+        find_dimens();
+        draw();
+    }
+}
+
+setInterval(function() {
     find_dimens();
     draw();
-}
+}, 2000)
