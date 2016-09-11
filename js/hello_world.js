@@ -22,21 +22,21 @@ var choose = function() {
     }
 };
 
-setInterval( function() { choose(); }, 3000);
+// setInterval( function() { choose(); }, 3000);
 
-setTimeout(function() {
-    choose();
-    document.getElementById('container').style.opacity = 1;
-}, 3000);
+// setTimeout(function() {
+//     choose();
+//     document.getElementById('container').style.opacity = 1;
+// }, 3000);
 
-choose();
+// choose();
 
-document.getElementsByTagName('button')[0].onclick = function() {
-    if (is_clicked === false) {
-        document.getElementById('site-title').style.display = "none";
-        is_clicked = true;
-    } else {
-        document.getElementById('site-title').style.display = "block";
-        is_clicked = false;
-    }
-};
+// document.getElementsByTagName('button')[0].onclick = function() {
+//     if (is_clicked === false) {
+//         document.getElementById('site-title').style.display = "none";
+//         is_clicked = true;
+//     } else {
+//         document.getElementById('site-title').style.display = "block";
+//         is_clicked = false;
+//     }
+// };
