@@ -2,7 +2,7 @@ body {
     margin: 20px;
     position: relative;
     overflow: hidden;
-    transition: 2s ease;
+    transition: 3s ease-in-out;
 }
 
 * {
@@ -11,7 +11,7 @@ body {
     box-sizing: border-box;
 }
 
-#site-title, button {
+#site-title {
     position: absolute;
     z-index: 1;
 }
@@ -20,7 +20,13 @@ iframe {
     position: absolute;
     border: none;
     background-color: rgba(255, 255, 255, 1);
-    transition: 2s ease-in-out;
+    transition: 2.5s ease-in-out;
+}
+
+form {
+    padding: 4px;
+    width: 100%;
+    text-align: right;
 }
 
 .excerpt {
@@ -28,7 +34,3 @@ iframe {
     font-weight: lighter;
     letter-spacing: -1.25;
 }
-
-/*img {*/
-/*    width: 100%;*/
-/*}*/
