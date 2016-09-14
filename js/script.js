@@ -70,10 +70,8 @@ var draw = function() {
     bg.closePath();
 }
 
-window.onload = function() {
-    find_dimens();
-    draw();
-}
+find_dimens();
+draw();
 
 window.onresize = function() {
     bg.canvas.width = window.innerWidth;
