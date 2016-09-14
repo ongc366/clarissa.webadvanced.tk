@@ -2,7 +2,6 @@ body {
     margin: 20px;
     position: relative;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 1);
     transition: 2s ease;
 }
 
@@ -25,24 +24,11 @@ iframe {
 }
 
 .excerpt {
-    font-family: arial, sans-serif;
+    font-family: helvetica, sans-serif;
     font-weight: lighter;
     letter-spacing: -1.25;
 }
 
-button {
-    height: 25%;
-    width: 100%;
-    border: none;
-    border-radius: 12px;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 1);
-    color: rgba(255, 255, 255, 1);
-    font-size: 20px;
-}
-
-button:hover { background-color: #888888; }
-
-button:active { background-color: rgba(0, 0, 0, 1); }
-
-button:focus { outline: none; }
+/*img {*/
+/*    width: 100%;*/
+/*}*/
