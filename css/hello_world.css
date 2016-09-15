@@ -24,12 +24,24 @@ iframe {
 }
 
 form {
-    padding: 4px;
     width: 100%;
     text-align: right;
+    position: absolute;
 }
 
-.excerpt {
+form input[type=submit] {
+    padding: 20px;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    z-index: 100;
+}
+
+form input[type=submit]:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+form input[type=submit], .excerpt {
     font-family: helvetica, sans-serif;
     font-weight: lighter;
     letter-spacing: -1.25;
