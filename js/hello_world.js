@@ -27,6 +27,6 @@ var shuffle = setInterval(function() {
         document.body.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
         bg_switch = false;
     }
-}, 3000)
+}, 2000)
 
 choose();

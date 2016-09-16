@@ -2,7 +2,7 @@ body {
     margin: 20px;
     position: relative;
     overflow: hidden;
-    transition: 3s ease-in-out;
+    transition: 2s ease-in-out;
 }
 
 * {
@@ -20,7 +20,7 @@ iframe {
     position: absolute;
     border: none;
     background-color: rgba(255, 255, 255, 1);
-    transition: 2.5s ease-in-out;
+    transition: 2s ease-in-out;
 }
 
 form {
