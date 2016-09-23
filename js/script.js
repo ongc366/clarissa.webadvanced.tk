@@ -70,16 +70,16 @@ var draw = function() {
     bg.closePath();
 }
 
-// find_dimens();
-// draw();
+find_dimens();
+draw();
 
-// window.onresize = function() {
-//     bg.canvas.width = window.innerWidth;
-//     bg.canvas.height = window.innerHeight;
-//     bg.clearRect(0, 0, w, h);
-// }
+window.onresize = function() {
+    bg.canvas.width = window.innerWidth;
+    bg.canvas.height = window.innerHeight;
+    bg.clearRect(0, 0, w, h);
+}
 
-// setInterval(function() {
-//     find_dimens();
-//     draw();
-// }, 3000)
+setInterval(function() {
+    find_dimens();
+    draw();
+}, 3000)
