@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#main-content {
+    width: 100%;
+    height: 100%;
+}
+
+.project-wrapper {
+    margin-left: -4px;
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    background-color: white;
+}
+
+.project-wrapper:first-child {
+    margin: 0;
+}
+
+.project-wrapper:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.a3,
+.a4 {
+    background-color: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
