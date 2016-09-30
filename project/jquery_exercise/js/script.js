@@ -31,17 +31,18 @@ $("body").addClass("gradient");
 
 var is_clicked = false;
 
-$("#status").click(function() {
-    if (is_clicked == false) {
-        $(this).html("GO");
-        $(this).css("background-color", "green");
+$("#toggle").click(function() {
+    if(is_clicked == false) {
+        $("#status").html("GO");
+        $("#status").css("background-color", "green");
+        $("#cat").show();
         is_clicked = true;
-    } else {
-        $(this).html("STOP");
-        $(this).css("background-color", "red");
+    }else{
+        $("#status").html("STOP");
+        $("#status").css("background-color", "red");
+        $("#cat").hide();
         is_clicked = false;
     }
-    $("#cat").toggle();
 })
 
-$("#toggle").click(function() { if(is_clicked == true) { $("#cat").toggle(); } });
+$("#status").mouseover(function() { if(is_clicked == true) { $("#cat").toggle(); } });
