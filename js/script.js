@@ -23,11 +23,11 @@ $('a').mouseenter(function() {
         title = 'Generative Form';
         bg = "magenta";
     } else if (id == "domain") {
-        info = 'There is nothing here yet, its still a work in progres.';
+        info = 'There is nothing here yet, its still a work in progress.';
         title = 'Domain';
         // bg = "lime";
     } else if (id == "sender_reciever") {
-        info = 'There is nothing here yet, its still a work in progres.';
+        info = 'There is nothing here yet, its still a work in progress.';
         title = 'Sender Reciever';
         // bg = "cyan";
     } else {
