@@ -38,6 +38,8 @@ a:hover {
 
 marquee {
     width: 100%;
+    font-size: 250px;
+    letter-spacing: -10;
 }
 
 #navigation {
