@@ -94,23 +94,81 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
 
+body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    font-size: 0;
+    background: rgba(0, 0, 0, 1);
+}
 
+a, 
+a:visited, 
+a:hover {
+    color: white;
+    text-decoration: none;
+}
 
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
 
+#content {
+    position: absolute;
+    overflow-y: scroll;
+}
 
+#redirect {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    box-shadow: 0 0 100px rgba(255, 255, 255, 1);
+}
 
+#summary { margin: 12px; }
 
+.title {
+    margin: 0;
+    padding: 0;
+    font-family: helvetica, sans-serif;
+    font-size: 36px;
+    font-weight: lighter;
+    color: white;
+    display: block;
+}
 
+.title:not(:first-child) { margin: 12px 0; }
 
+#country,
+#time, 
+#previous {
+    padding: 4px;
+    border: solid 1px white;
+}
 
+#title {
+    margin-bottom: 24px;
+}
 
-
-
-
-
-
-
+#fade {
+    position: fixed;
+    width: 100%;
+    height: 200px;
+    background: black;
+    background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(transparent, rgba(0, 0, 0, 1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(transparent, rgba(0, 0, 0, 1)); /* Standard syntax */
+    opacity: 0.8;
+    bottom: 0;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
