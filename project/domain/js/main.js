@@ -38,7 +38,6 @@ var print_redirect = function(current_news_source, current_link, current_time) {
     news_source.html(current_news_source);
     previous.html(link_title).attr('href', current_link);
     time.html(current_time);
-    console.log(pos);
 }
 
 var record_redirect = function() {
@@ -52,7 +51,7 @@ var record_redirect = function() {
     Cookies.set('record_link', current_link);
     print_redirect(current_news_source, current_link, current_time);
     window.open(current_link);
-    // console.log(Cookies.get('record_time'), Cookies.get('record_news_source'), Cookies.get('record_link'));
+    console.log(Cookies.get('record_time'), Cookies.get('record_news_source'), Cookies.get('record_link'));
 };
 
 content.scroll(function() {
