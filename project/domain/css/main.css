@@ -133,7 +133,7 @@ a:hover {
     z-index: 1;
 }
 
-#record { margin: 12px; position: absolute; top: 76px;}
+#record { margin: 16px 12px; position: absolute; top: 72px; width 75%;}
 
 .title {
     margin: 0;
@@ -143,14 +143,15 @@ a:hover {
     color: white;
     margin-left: -1px;
     margin-top: 0px;
+    letter-spacing: -0.35px;
     display: inline-block;
 }
 
-.fixed {
+.logo {
     position: fixed;
-    top: 12px;
+    top: 14px;
     left: 12px;
-    margin-top: -3px;
+    margin-top: -2px;
     margin-bottom: 12px;
     z-index: 1;
 }
@@ -160,7 +161,7 @@ a:hover {
 }
 
 #logo,
-#country,
+#news_source,
 #time, 
 #previous { 
     padding: 4px; 

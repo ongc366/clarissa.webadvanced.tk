@@ -1,14 +1,12 @@
-var redirect = [];
-var source = [];
+var redirect = [],
+    all_redirect = [];
 
-var record_previous = $('#previous'),
-    record_time = $('#time'),
-    record_location = $('#country'),
+var previous = $('#previous'),
+    time = $('#time'),
+    news_source = $('#news_source'),
     content = $('#content'),
     white_screen = $('#white_screen'),
-    current_redirect,
-    current_location,
-    current_time;
+    logo = $('#logo');
     
 var time_accessed = function() {
     var date = new Date(),
@@ -22,9 +20,7 @@ var time_accessed = function() {
     if (minutes.toString().length < 2) { minutes = '0' + minutes.toString(); }
     if (hour > 12) { 
         hour = hour - 12;
-        if (hour == 0) {
-            hour = hour + 1;
-        }
+        if (hour == 0) { hour = hour + 1; } 
         time_of_day = ' PM';
     } else if (hour == 12) {
         time_of_day = ' PM';
@@ -35,24 +31,28 @@ var time_accessed = function() {
     return record;
 };
 
-var record_redirect = function() {
-    // current_redirect = 'http://www.google.com';
-    current_time = time_accessed();
-    // Set Cookies here.
-    var random = Math.floor(Math.random()*redirect.length);
-    var current_redirect = redirect[random];
-    var current_location = source[random];
-    Cookies.set('current_redirect', current_redirect);
-    Cookies.set('current_time', current_time);
-    open_redirect(current_redirect, current_location, current_time);
-    console.log(Cookies.get('current_redirect'), Cookies.get('current_time'));
-};
+var print_redirect = function(current_news_source, current_link, current_time) {
+    var pos = current_link.search('.com') + 5;
+    var link_title = current_link.slice(pos, current_link.length);
+    link_title = link_title.replace('.html', '');
+    news_source.html(current_news_source);
+    previous.html(link_title).attr('href', current_link);
+    time.html(current_time);
+    console.log(pos);
+}
 
-var open_redirect = function(current_redirect, current_location, current_time) {
-    record_location.html(current_location);
-    record_previous.html(current_redirect).attr('href', current_redirect);
-    record_time.html(current_time);
-    window.open(current_redirect);
+var record_redirect = function() {
+    var current_time = time_accessed();
+    var random = Math.floor(Math.random()*all_redirect.length);
+    var current_redirect = all_redirect[random];
+    var current_news_source = current_redirect[0];
+    var current_link = current_redirect[1];
+    Cookies.set('record_time', current_time);
+    Cookies.set('record_news_source', current_news_source);
+    Cookies.set('record_link', current_link);
+    print_redirect(current_news_source, current_link, current_time);
+    window.open(current_link);
+    // console.log(Cookies.get('record_time'), Cookies.get('record_news_source'), Cookies.get('record_link'));
 };
 
 content.scroll(function() {
@@ -63,8 +63,8 @@ content.scroll(function() {
         record_redirect();
     }
     clearTimeout(content.data(this, 'timer'));
-    content.data(this, 'timer', setTimeout(function() { $('#logo').html('...'); }, 250));
-    $('#logo').html('Redirecting');
+    content.data(this, 'timer', setTimeout(function() { logo.html('...'); }, 250));
+    logo.html('Redirecting');
 });
 
 $.ajax({
@@ -73,14 +73,15 @@ $.ajax({
     jsonp: 'callback',
     jsonpCallback: 'cbfunc',
     success: function(data){
-        current_redirect;
         var json_data = data.query.results.item;
-        var no_items= json_data.length;  
+        var no_items= json_data.length / 4;  
         for(var i=0;i<no_items;i++){  
-            current_redirect = json_data[i].link;  
-            current_location = json_data[i].source.content;
-            redirect[i] = current_redirect;
-            source[i] = current_location;
+            redirect = [];
+            var current_source = json_data[i].source.content;
+            var current_link = json_data[i].link;
+            redirect.push(current_source, current_link);
+            all_redirect.push(redirect);
         }
+        redirect = [];
     }
 })
