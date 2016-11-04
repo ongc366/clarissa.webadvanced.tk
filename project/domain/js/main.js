@@ -42,7 +42,7 @@ var print_redirect = function(current_news_source, current_link, current_time) {
 
 var record_redirect = function() {
     var current_time = time_accessed();
-    var random = Math.floor(Math.random()*all_redirect.length);
+    var random = Math.floor(Math.random()*all_redirect_total);
     var current_redirect = all_redirect[random];
     var current_news_source = current_redirect[0];
     var current_link = current_redirect[1];
@@ -67,20 +67,30 @@ content.scroll(function() {
 });
 
 $.ajax({
-    url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true&callback=cbfunc',
+    // url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true&callback=cbfunc',
+    // url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true&callback=cbfunc',
+    url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2Fworld%22&format=json&diagnostics=true&callback=cbfunc',
     dataType: 'jsonp',
     jsonp: 'callback',
     jsonpCallback: 'cbfunc',
     success: function(data){
         var json_data = data.query.results.item;
         var no_items= json_data.length / 4;  
-        for(var i=0;i<no_items;i++){  
+        for (var i = 0; i < no_items; i++) {
             redirect = [];
-            var current_source = json_data[i].source.content;
-            var current_link = json_data[i].link;
+            // YQL
+                var current_source = json_data[i].source.content;
+                var current_link = json_data[i].link;
+            // CNN
+                // var current_source = 'CNN';
+                // var current_link = json_data[i].guid.content;
+            // Washington Post
+                // var current_source = 'Washington Post';
+                // var current_link = json_data[i].link;
             redirect.push(current_source, current_link);
             all_redirect.push(redirect);
         }
         redirect = [];
+        console.log(json_data);
     }
 })
