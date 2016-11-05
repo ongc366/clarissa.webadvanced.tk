@@ -94,94 +94,78 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+   
 * {
     margin: 0;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
 }
 
 body {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    background: black;
     font-size: 0;
-    /*background: rgba(0, 0, 0, 1);*/
-    background: blue;
+    color: white;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 a, 
 a:visited, 
-a:hover {
-    color: white;
-    text-decoration: none;
+a:hover { 
+    color: white; 
+    text-decoration: none; 
 }
 
+body, 
 .wrapper {
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
-#content {
-    position: absolute;
-    overflow-y: scroll;
-}
-
-#white_screen {
-    position: absolute;
-    background-color: white;
-    top: 100%;
-    box-shadow: 0 0 100px rgba(255, 255, 255, 1);
-    z-index: 1;
-}
-
-#record { margin: 16px 14px; position: absolute; top: 58px; width: 75%; }
-
-.title {
+h1 {
     margin: 0;
     font-family: helvetica, sans-serif;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: lighter;
-    color: white;
-    margin-left: -1px;
-    margin-top: 0px;
-    letter-spacing: -0.35px;
     display: inline-block;
+}
+
+.content {
+    padding: 12px;
+    position: absolute;
+    top: 93px;
+    margin-left: 2px;
+    width: 100%;
 }
 
 .logo {
     position: fixed;
-    top: 14px;
-    left: 14px;
-    margin-top: -2px;
-    margin-bottom: 12px;
-    z-index: 1;
+    top: 12px;
+    left: 12px;
+    background-color: black;
 }
 
-#logo {
-    background-color: blue;
-}
-
-#logo,
-#news_source,
-#time, 
-#previous,
-#about { 
-    padding: 4px; 
+.logo,
+.name,
+.news_source,
+.date { 
+    padding: 5.5px; 
     border: solid 1px white; 
 }
 
-#overlay {
-    position: fixed;
-    width: 100%;
-    height: 200px;
-    background: black;
-    background: -webkit-linear-gradient(transparent, blue); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(transparent, blue); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(transparent, blue); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(transparent, blue); /* Standard syntax */
-    opacity: 0.8;
-    bottom: 0;
+.news_source,
+.name,
+.date {
+    margin-left: -2px;
 }
+
+.white_screen {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */

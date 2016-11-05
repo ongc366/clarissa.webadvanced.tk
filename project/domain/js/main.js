@@ -1,13 +1,29 @@
 var redirect = [],
-    all_redirect = [];
+    redirects = [];
 
-var previous = $('#previous'),
-    time = $('#time'),
-    news_source = $('#news_source'),
-    content = $('#content'),
-    white_screen = $('#white_screen'),
-    logo = $('#logo');
-    
+var rec_date = $('.date'),
+    rec_name = $('.name'),
+    rec_source = $('.news_source'),
+    white_screen = $('.white_screen'),
+    logo = $('.logo'),
+    countdown = white_screen.position().top,
+    source,
+    link;
+
+$(window).scroll(function() {
+    countdown = white_screen.position().top - window.innerHeight;
+    if (countdown == window.innerHeight) { 
+        white_screen.hide(); 
+        $('.loading').show();
+        print_redirect();
+        setTimeout(function() { white_screen.show();  $('.loading').hide(); $('body').scrollTop(0) }, 250); 
+    }
+    clearTimeout($(this).data(this, 'timer'));
+    $(window).data(this, 'timer', setTimeout(function() { logo.html('&#8631;'); }, 300));
+    logo.html('&#8631; REDIRECT&nbsp;');
+    console.log(countdown, window.innerHeight);
+})
+
 var time_accessed = function() {
     var date = new Date(),
         record,
@@ -17,6 +33,7 @@ var time_accessed = function() {
         day = date.getDate(),
         year = date.getFullYear(),
         time_of_day;
+        
     if (minutes.toString().length < 2) { minutes = '0' + minutes.toString(); }
     if (hour > 12) { 
         hour = hour - 12;
@@ -31,66 +48,34 @@ var time_accessed = function() {
     return record;
 };
 
-var print_redirect = function(current_news_source, current_link, current_time) {
-    var pos = current_link.search('.com') + 5;
-    var link_title = current_link.slice(pos, current_link.length);
-    link_title = link_title.replace('.html', '');
-    news_source.html(current_news_source);
-    previous.html(link_title).attr('href', current_link);
-    time.html(current_time);
+var print_redirect = function() {
+    var random = Math.floor(Math.random()*redirects.length);
+    random = redirects[random];
+    rec_date.html(time_accessed());
+    rec_source.html(random[0]);
+    rec_name.html(random[1]);
+    rec_name.attr('href', random[1]);
+    window.open(random[1]);
 }
 
-var record_redirect = function() {
-    var current_time = time_accessed();
-    var random = Math.floor(Math.random()*all_redirect_total);
-    var current_redirect = all_redirect[random];
-    var current_news_source = current_redirect[0];
-    var current_link = current_redirect[1];
-    Cookies.set('record_time', current_time);
-    Cookies.set('record_news_source', current_news_source);
-    Cookies.set('record_link', current_link);
-    print_redirect(current_news_source, current_link, current_time);
-    window.open(current_link);
-    console.log(Cookies.get('record_time'), Cookies.get('record_news_source'), Cookies.get('record_link'));
-};
-
-content.scroll(function() {
-    var countdown = white_screen.offset().top;
-    if (countdown == 0) {
-        white_screen.hide();
-        setTimeout(function() { white_screen.show(); }, 250);
-        record_redirect();
-    }
-    clearTimeout(content.data(this, 'timer'));
-    content.data(this, 'timer', setTimeout(function() { logo.html('...'); }, 250));
-    logo.html('Redirecting');
-});
-
 $.ajax({
-    // url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true&callback=cbfunc',
-    // url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true&callback=cbfunc',
-    url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2Fworld%22&format=json&diagnostics=true&callback=cbfunc',
+    url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true&callback=cbfunc',
     dataType: 'jsonp',
     jsonp: 'callback',
     jsonpCallback: 'cbfunc',
     success: function(data){
-        var json_data = data.query.results.item;
-        var no_items= json_data.length / 4;  
+        var json_data = data.query.results.item,
+            no_items= json_data.length / 4;
         for (var i = 0; i < no_items; i++) {
             redirect = [];
-            // YQL
-                var current_source = json_data[i].source.content;
-                var current_link = json_data[i].link;
-            // CNN
-                // var current_source = 'CNN';
-                // var current_link = json_data[i].guid.content;
-            // Washington Post
-                // var current_source = 'Washington Post';
-                // var current_link = json_data[i].link;
-            redirect.push(current_source, current_link);
-            all_redirect.push(redirect);
+            source = json_data[i].source.content;
+            link = json_data[i].link;
+            redirect.push(source, link);
+            redirects.push(redirect);
         }
         redirect = [];
-        console.log(json_data);
+        source = '';
+        link = '';
+        console.log(redirects)
     }
 })
