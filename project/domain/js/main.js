@@ -72,10 +72,10 @@ var print_redirect = function() {
     link = random[1];
     rec_date.html(time_accessed());
     rec_source.html(source);
-    rec_name.html(create_title(link)).attr('href', link);
+    rec_name.html(link).attr('href', link);
     Cookies.set('rec_date', time_accessed(), {expires: 1});
     Cookies.set('rec_source', source, {expires: 1});
-    Cookies.set('rec_name', create_title(link), {expires: 1});
+    Cookies.set('rec_name', link, {expires: 1});
     window.open(link);
 }
 
