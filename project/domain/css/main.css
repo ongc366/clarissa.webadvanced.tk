@@ -149,7 +149,8 @@ h1 {
 .logo,
 .name,
 .news_source,
-.date { 
+.date,
+.archive { 
     padding: 5.5px; 
     border: solid 1px white; 
 }
@@ -164,6 +165,22 @@ h1 {
     position: absolute;
     background-color: white;
     top: 100%;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.loading h1 {
+    margin: 12px;
+    padding: 6px;
+    border: solid 1px white;
 }
 
 /* ==========================================================================
