@@ -59,7 +59,8 @@ var time_accessed = function() {
 
 var create_title = function(link) {
     var title = link;
-    title = title.replace('.html', '').replace('http://', '');
+    title = title.replace('.html', '');
+    title = title.replace('http://', '');
     title = title.slice(title.search('.com') + 5);
     return title;
 }
