@@ -6,7 +6,12 @@ var news_sources = {
                 'CNN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true'},
                 'NYTIMES': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWorld.xml%22&format=json&diagnostics=true'},
                 'RT': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.rt.com%2Frss%2Fnews%2F%22&format=json&diagnostics=true'},
-                'BBC': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Frss.xml%22&format=json&diagnostics=true'}
+                'BBC': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Frss.xml%22&format=json&diagnostics=true'},
+                'GUARDIAN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.theguardian.com%2Fworld%2Frss%22&format=json&diagnostics=true'},
+                'ALJAZEERA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml%22&format=json&diagnostics=true'},
+                'SOLE24ORE': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.ilsole24ore.com%2Frss%2Fmondo.xml%22&format=json&diagnostics=true'},
+                'PROPUBLICA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.propublica.org%2Fpropublica%2Fmain%22&format=json&diagnostics=true'},
+                'TELEMUNDO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.telemundo52.com%2Fnoticias%2Fmundo%2F%3Frss%3Dy%26embedThumb%3Dy%26summary%3Dy%22&format=json&diagnostics=true'}
               };
               // &callback=cbfunc
 
@@ -91,10 +96,31 @@ var get_articles = function(current_source) {
                     redirect[0] = "BBC";
                     redirect[1] = json_data[i].guid.content;
                 }
+                if (current_source == "GUARDIAN") {
+                    redirect[0] = "GUARDIAN";
+                    redirect[1] = json_data[i].link;
+                }
+                if (current_source == "ALJAZEERA") {
+                    redirect[0] = "ALJAZEERA";
+                    redirect[1] = json_data[i].link;
+                }
+                if (current_source == "SOLE24ORE") {
+                    redirect[0] = "IL SOLE 24 ORE";
+                    redirect[1] = json_data[i].link;
+                }
+                if (current_source == "PROPUBLICA") {
+                    redirect[0] = "PROPUBLICA";
+                    redirect[1] = json_data[i].guid.content;
+                }
+                if (current_source == "TELEMUNDO") {
+                    redirect[0] = "TELEMUNDO";
+                    redirect[1] = json_data[i].link;
+                }
                 redirects.push(redirect);
                 redirect = [];
             }
             redirect = [];
+            console.log(json_data);
         }
     })
 }
@@ -105,7 +131,8 @@ var make_title = function(title) {
     if (title.search('HTTP://')) { new_title = new_title.replace('http://', ''); }
     if (title.search('HTTPS://')) { new_title = new_title.replace('https://', ''); }
     if (title.search('WWW.')) { new_title = new_title.replace('www.', ''); }
-    if (title.search('.COM')) { new_title = new_title.slice(new_title.search('.com') + 4, 100); }
+    if (title.search('.COM')) { new_title = new_title.slice(new_title.search('.com') + 3, 200); }
+    if (title.search('.ORG')) { new_title = new_title.slice(new_title.search('.org') + 3, 200); }
     if (title.search('.CO')) { new_title = new_title.replace('.co', ''); }
     if (title.search('.UK')) { new_title = new_title.replace('.uk', ''); }
     return new_title;
