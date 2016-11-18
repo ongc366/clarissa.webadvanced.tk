@@ -6,12 +6,12 @@ var news_sources = {
                 'CNN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true'},
                 'NYTIMES': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWorld.xml%22&format=json&diagnostics=true'},
                 'RT': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.rt.com%2Frss%2Fnews%2F%22&format=json&diagnostics=true'},
-                'BBC': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Frss.xml%22&format=json&diagnostics=true'},
                 'GUARDIAN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.theguardian.com%2Fworld%2Frss%22&format=json&diagnostics=true'},
                 'ALJAZEERA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml%22&format=json&diagnostics=true'},
                 'SOLE24ORE': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.ilsole24ore.com%2Frss%2Fmondo.xml%22&format=json&diagnostics=true'},
                 'PROPUBLICA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.propublica.org%2Fpropublica%2Fmain%22&format=json&diagnostics=true'},
-                'TELEMUNDO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.telemundo52.com%2Fnoticias%2Fmundo%2F%3Frss%3Dy%26embedThumb%3Dy%26summary%3Dy%22&format=json&diagnostics=true'}
+                'TELEMUNDO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.telemundo52.com%2Fnoticias%2Fmundo%2F%3Frss%3Dy%26embedThumb%3Dy%26summary%3Dy%22&format=json&diagnostics=true'},
+                'NPR': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.npr.org%2Frss%2Frss.php%3Fid%3D1001%22&format=json&diagnostics=true'}
               };
               // &callback=cbfunc
 
@@ -66,6 +66,18 @@ var get_date = function() {
     return record;
 };
 
+var piece_to_crop = ['HTTP://', 'HTTPS://', 'WWW.', '.HTML', '.COM', '.CO', '.UK', '.ORG'];
+
+var make_title = function(title) {
+    var new_title = title;
+    for (var i = 0; i < piece_to_crop.length; i++) {
+        if (new_title.search(piece_to_crop[i])) {
+            new_title = new_title.replace(piece_to_crop[i].toLowerCase(), '');
+        }
+    }
+    return new_title;
+}
+
 var get_articles = function(current_source) {
     $.ajax({
         url: news_sources[current_source].url,
@@ -89,12 +101,8 @@ var get_articles = function(current_source) {
                     redirect[1] = json_data[i].guid.content;
                 }
                 if (current_source == "RT") {
-                    redirect[0] = "RT";
+                    redirect[0] = "RUSSIA TODAY";
                     redirect[1] = json_data[i].guid;
-                }
-                if (current_source == "BBC") {
-                    redirect[0] = "BBC";
-                    redirect[1] = json_data[i].guid.content;
                 }
                 if (current_source == "GUARDIAN") {
                     redirect[0] = "GUARDIAN";
@@ -116,45 +124,33 @@ var get_articles = function(current_source) {
                     redirect[0] = "TELEMUNDO";
                     redirect[1] = json_data[i].link;
                 }
+                if (current_source == "NPR") {
+                    redirect[0] = "NPR";
+                    redirect[1] = json_data[i].link;
+                }
                 redirects.push(redirect);
                 redirect = [];
             }
             redirect = [];
-            console.log(json_data);
         }
     })
-}
-
-var make_title = function(title) {
-    var new_title = title;
-    if (title.search('.HTML')) { new_title = new_title.replace('.html', ''); }
-    if (title.search('HTTP://')) { new_title = new_title.replace('http://', ''); }
-    if (title.search('HTTPS://')) { new_title = new_title.replace('https://', ''); }
-    if (title.search('WWW.')) { new_title = new_title.replace('www.', ''); }
-    if (title.search('.COM')) { new_title = new_title.slice(new_title.search('.com') + 3, 200); }
-    if (title.search('.ORG')) { new_title = new_title.slice(new_title.search('.org') + 3, 200); }
-    if (title.search('.CO')) { new_title = new_title.replace('.co', ''); }
-    if (title.search('.UK')) { new_title = new_title.replace('.uk', ''); }
-    return new_title;
 }
 
 var print_articles = function() {
     var random = Math.floor(Math.random()*redirects.length);
     random = redirects[random];
-    news_source.html(random[0]);
+    var new_title = make_title(random[1]);
     title.html(make_title(random[1])).attr('href', random[1]);
     date.html(get_date());
     Cookies.set('date', get_date());
     Cookies.set('title', make_title(random[1]));
     Cookies.set('titlehref', random[1]);
-    Cookies.set('news_source', random[0]);
     window.open(random[1]);
 }
 
 $(document).ready(function() {
     loading_screen.hide();
     date.html(Cookies.get('date'));
-    news_source.html(Cookies.get('news_source'));
     title.html(Cookies.get('title')).attr('href', Cookies.get('titlehref'));
     for (var i = 0; i < Object.keys(news_sources).length; i++) {
         get_articles(Object.keys(news_sources)[i]);
