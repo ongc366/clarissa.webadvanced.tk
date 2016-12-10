@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>YQL Example</title>
+  </head>
+  <body>
+    <!--https://developer.yahoo.com/yql/-->
+
+    <div id="content"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="jquery.query-yql.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        var t = $('#content').empty();
+        var statement = "select * from feed where url='http://www.tributes.com/location/rss/New%20York,%20NY'";
+        $.queryYQL(statement, "json", undefined, function (data) {
+          // do something with "data".
+          console.log(data.query.results.item);
+          for (var i = 0; i < data.query.results.item.length; i++) {
+            console.log(data.query.results.item[i].title[0]);
+            $("body").append("<p>" + data.query.results.item[i].description + ' ' + data.query.results.item[i].title + "</p>")
+          }
+        });
+
+ 
+      });
+    </script>
+  </body>
+</html>

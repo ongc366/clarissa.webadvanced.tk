@@ -2,16 +2,17 @@ var redirects = [],
     redirect = [];
 
 var news_sources = {
-                'YAHOO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true'},
-                'CNN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true'},
-                'NYTIMES': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWorld.xml%22&format=json&diagnostics=true'},
-                'RT': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.rt.com%2Frss%2Fnews%2F%22&format=json&diagnostics=true'},
-                'GUARDIAN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.theguardian.com%2Fworld%2Frss%22&format=json&diagnostics=true'},
-                'ALJAZEERA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml%22&format=json&diagnostics=true'},
-                'SOLE24ORE': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.ilsole24ore.com%2Frss%2Fmondo.xml%22&format=json&diagnostics=true'},
-                'PROPUBLICA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.propublica.org%2Fpropublica%2Fmain%22&format=json&diagnostics=true'},
-                'TELEMUNDO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.telemundo52.com%2Fnoticias%2Fmundo%2F%3Frss%3Dy%26embedThumb%3Dy%26summary%3Dy%22&format=json&diagnostics=true'},
-                'NPR': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.npr.org%2Frss%2Frss.php%3Fid%3D1001%22&format=json&diagnostics=true'}
+                // 'YAHOO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.news.yahoo.com%2Frss%2Ftopstories%22&format=json&diagnostics=true'},
+                // 'CNN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Frss.cnn.com%2Frss%2Fcnn_topstories.rss%22&format=json&diagnostics=true'},
+                // 'NYTIMES': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWorld.xml%22&format=json&diagnostics=true'},
+                // 'RT': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.rt.com%2Frss%2Fnews%2F%22&format=json&diagnostics=true'},
+                // 'GUARDIAN': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22https%3A%2F%2Fwww.theguardian.com%2Fworld%2Frss%22&format=json&diagnostics=true'},
+                // 'ALJAZEERA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml%22&format=json&diagnostics=true'},
+                // 'SOLE24ORE': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.ilsole24ore.com%2Frss%2Fmondo.xml%22&format=json&diagnostics=true'},
+                // 'PROPUBLICA': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.propublica.org%2Fpropublica%2Fmain%22&format=json&diagnostics=true'},
+                // 'TELEMUNDO': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.telemundo52.com%2Fnoticias%2Fmundo%2F%3Frss%3Dy%26embedThumb%3Dy%26summary%3Dy%22&format=json&diagnostics=true'},
+                'NPR': {url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.npr.org%2Frss%2Frss.php%3Fid%3D1001%22&format=json&diagnostics=true&callback=cbfunc'}
+            
               };
               // &callback=cbfunc
 
@@ -78,12 +79,17 @@ var make_title = function(title) {
     return new_title;
 }
 
+function cbfunc() {
+    //this will run on callback
+    console.log("you did it...");
+}
+
 var get_articles = function(current_source) {
     $.ajax({
         url: news_sources[current_source].url,
         dataType: 'jsonp',
         jsonp: 'callback',
-        // jsonpCallback: 'cbfunc',
+        jsonpCallback: 'cbfunc',
         success: function(data){
             var json_data = data.query.results.item;
             var no_items = 10;
@@ -139,7 +145,6 @@ var get_articles = function(current_source) {
 var print_articles = function() {
     var random = Math.floor(Math.random()*redirects.length);
     random = redirects[random];
-    var new_title = make_title(random[1]);
     title.html(make_title(random[1])).attr('href', random[1]);
     date.html(get_date());
     Cookies.set('date', get_date());
