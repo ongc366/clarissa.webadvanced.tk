@@ -14,7 +14,23 @@ function get_astronomy(data, attribute) {
     if (attribute == 'sunset') { return data.query.results.channel.astronomy.sunset; }
     if (attribute == 'sunrise') { return data.query.results.channel.astronomy.sunrise; }
 }
-    
+
+function hour_to(data, attribute) {
+    var current = new Date(),
+        sunset,
+        sunrise;
+    current = current.getHours();
+    if (attribute == 'sunset') {
+        sunset = 12 + Math.abs(parseInt(data.query.results.channel.astronomy.sunset));
+        current = current - sunset;
+    }
+    if (attribute == 'sunrise') {
+        sunrise = Math.abs(parseInt(data.query.results.channel.astronomy.sunrise));
+        current = current - sunrise;
+    }
+    return Math.abs(current);
+}
+
 function get_forecast(data, attribute) {
     var temps = [];
     for (var i = 0; i < data.query.results.channel.item.forecast.length; i++) {
@@ -56,6 +72,8 @@ $.get('https://ipinfo.io', function(response) {
                 analysis.visibility = get_atmosphere(data, 'visibility');
                 analysis.sunset = get_astronomy(data, 'sunset');
                 analysis.sunrise = get_astronomy(data, 'sunrise');
+                analysis.hour_to_sunset = hour_to(data, 'sunset');
+                analysis.hour_to_sunrise = hour_to(data, 'sunrise');
                 
                 console.log(analysis);
             }
@@ -113,7 +131,7 @@ drawing.canvas.onmousemove = function(e) {
     if (is_drawing == true) {
         x = e.x;
         y = e.y;
-        brush(x, y, analysis.wind_speed + analysis.temp_low, analysis.wind_speed + analysis.temp_high, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, 'black');
+        brush(x, y, analysis.wind_speed + analysis.temp_low, analysis.wind_speed + analysis.temp_high, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
     }
 }
 
