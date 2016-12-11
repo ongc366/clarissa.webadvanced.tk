@@ -10,11 +10,6 @@ function get_atmosphere(data, attribute) {
     if (attribute == 'visibility') { return data.query.results.channel.atmosphere.visibility; }
 }
 
-function get_astronomy(data, attribute) {
-    if (attribute == 'sunset') { return data.query.results.channel.astronomy.sunset; }
-    if (attribute == 'sunrise') { return data.query.results.channel.astronomy.sunrise; }
-}
-
 function hour_to(data, attribute) {
     var current = new Date(),
         sunset,
@@ -70,8 +65,6 @@ $.get('https://ipinfo.io', function(response) {
                 analysis.humidity = get_atmosphere(data, 'humidity');
                 analysis.pressure = get_atmosphere(data, 'pressure');
                 analysis.visibility = get_atmosphere(data, 'visibility');
-                analysis.sunset = get_astronomy(data, 'sunset');
-                analysis.sunrise = get_astronomy(data, 'sunrise');
                 analysis.hour_to_sunset = hour_to(data, 'sunset');
                 analysis.hour_to_sunrise = hour_to(data, 'sunrise');
                 
@@ -138,4 +131,14 @@ drawing.canvas.onmousemove = function(e) {
 drawing.canvas.onmouseup = function(e) {
     is_drawing = false;
     x = y = last_x = last_y = 0;
+    localStorage.setItem(drawing, drawing.canvas.toDataURL());
 }
+
+$(document).ready(function() {
+    var dataURL = localStorage.getItem(drawing);
+    var img = new Image;
+        img.src = dataURL;
+        img.onload = function () {
+        drawing.drawImage(img, 0, 0);
+    };
+})
