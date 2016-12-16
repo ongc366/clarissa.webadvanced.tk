@@ -21,7 +21,7 @@ function hour_to(data, attribute) {
     }
     if (attribute == 'sunrise') {
         sunrise = Math.abs(parseInt(data.query.results.channel.astronomy.sunrise));
-        current = current - sunrise;
+        current = 24 - (current - sunrise);
     }
     return Math.abs(current);
 }
@@ -54,7 +54,7 @@ $.get('https://ipinfo.io', function(response) {
         var location = response.postal;
         $.get('https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")&format=json', function (data) {
             if (data.query.results === null) {
-                console.log("Location not found: " + location + "!");
+                location = 10001;
             } else {
                 console.log(data.query.results);
                 analysis.temp_avg = get_forecast(data, 'whole');
@@ -67,7 +67,6 @@ $.get('https://ipinfo.io', function(response) {
                 analysis.visibility = get_atmosphere(data, 'visibility');
                 analysis.hour_to_sunset = hour_to(data, 'sunset');
                 analysis.hour_to_sunrise = hour_to(data, 'sunrise');
-                
                 console.log(analysis);
             }
         });
@@ -124,7 +123,7 @@ drawing.canvas.onmousemove = function(e) {
     if (is_drawing == true) {
         x = e.x;
         y = e.y;
-        brush(x, y, analysis.wind_speed + analysis.temp_low, analysis.wind_speed + analysis.temp_high, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
+        brush(x, y, (analysis.wind_speed + analysis.temp_low)/2, (analysis.wind_speed + analysis.temp_high)/2, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
     }
 }
 
