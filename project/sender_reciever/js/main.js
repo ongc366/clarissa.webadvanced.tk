@@ -123,7 +123,7 @@ drawing.canvas.onmousemove = function(e) {
     if (is_drawing == true) {
         x = e.x;
         y = e.y;
-        brush(drawing, x, y, (analysis.wind_speed + analysis.temp_low)/3, (analysis.wind_speed + analysis.temp_high)/3, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
+        brush(drawing, x, y, (analysis.wind_speed + analysis.temp_low), (analysis.wind_speed + analysis.temp_high), analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
     }
 }
 
