@@ -97,18 +97,18 @@ var drawing = build_canvas('drawing');
 
 function color(h, s, l, a) { return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')'; }
 
-function brush(x, y, radiusX, radiusY, rotation, startAngle, endAngle, pressure, color) {
-    drawing.save();
-    drawing.beginPath();
-    drawing.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    drawing.fillStyle = color,
-    drawing.shadowBlur = pressure;
-    drawing.shadowColor = color;
-    drawing.shadowOffsetX = radiusX;
-    drawing.shadowOffsetY = radiusY;
-    drawing.closePath();
-    drawing.fill();
-    drawing.restore();
+function brush(surface, x, y, radiusX, radiusY, rotation, startAngle, endAngle, pressure, color) {
+    surface.save();
+    surface.beginPath();
+    surface.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+    surface.fillStyle = color,
+    surface.shadowBlur = pressure;
+    surface.shadowColor = color;
+    surface.shadowOffsetX = radiusX;
+    surface.shadowOffsetY = radiusY;
+    surface.closePath();
+    surface.fill();
+    surface.restore();
 }
 
 // drawing application
@@ -123,7 +123,7 @@ drawing.canvas.onmousemove = function(e) {
     if (is_drawing == true) {
         x = e.x;
         y = e.y;
-        brush(x, y, (analysis.wind_speed + analysis.temp_low)/2, (analysis.wind_speed + analysis.temp_high)/2, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
+        brush(drawing, x, y, (analysis.wind_speed + analysis.temp_low)/3, (analysis.wind_speed + analysis.temp_high)/3, analysis.wind_direction * Math.PI/180, 0, 2 * Math.PI, analysis.pressure, color((Math.abs(analysis.hour_to_sunset/24))*360, (analysis.temp_avg/analysis.temp_high)*100, (analysis.temp_low/analysis.temp_avg)*100, (analysis.humidity/100)*360));
     }
 }
 
@@ -134,6 +134,7 @@ drawing.canvas.onmouseup = function(e) {
 }
 
 $(document).ready(function() {
+    $('canvas').css('opacity', 1);
     var dataURL = localStorage.getItem(drawing);
     var img = new Image;
         img.src = dataURL;

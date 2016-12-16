@@ -99,6 +99,7 @@ textarea {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 0.25s ease;
 }
 
 body {
@@ -107,9 +108,12 @@ body {
     width: 100%;
     height: 100%;
     font-size: 0;
-    /*background-color: hsla(200, 100%, 59%, 1);*/
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+canvas {
+    opacity: 0;
 }
 
 /* ==========================================================================
