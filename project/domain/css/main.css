@@ -2,7 +2,7 @@
 
 /*
  * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Crgba(0, 0, 0, 1)it left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  */
 
@@ -24,61 +24,9 @@ html {
  * Customize the background color to match your design.
  */
 
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
+::-moz-selection { text-shadow: none; }
 
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-    vertical-align: middle;
-}
-
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-/*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-    resize: vertical;
-}
+::selection { text-shadow: none; }
 
 /* ==========================================================================
    Browser Upgrade Prompt
@@ -94,144 +42,156 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    position: relative;
-    font-size: 0;
-    font-family: helvetica, sans-serif;
-    color: white;
-    overflow-x: hidden;
-    overflow-y: scroll;
+  position: relative;
+  font-size: 0;
 }
+
+/* Default Styles */
+
+.margin { margin: 32px; }
+
+.padding { padding: 32px; }
 
 .fixed { position: fixed; }
 
 .absolute { position: absolute; }
 
-.bg-black { background-color: black; }
+.color-white { color: rgba(255, 255, 255, 1); }
 
-.bg-white { background-color: white; }
+.color-blue { color: rgba(0, 0, 255, 1); }
 
-a, 
-a:visited, 
-a:hover { 
-    color: white; 
-    text-decoration: none; 
-}
+.color-black { color: rgba(0, 0, 0, 1)}
 
-a, 
-scpan,
-.loading_screen h1 { 
-    padding: 5.5px; 
-    border: solid 1px white; 
-}
+.bg-black { background-color: rgba(0, 0, 0, 1); }
 
-a,
-scpan:not(.logo) { margin-left: -2px; }
+.bg-white { background-color: rgba(255, 255, 255, 1); }
 
-body, 
+.bg-blue { background-color: rgba(0, 0, 255, 1); }
+
+.border { border: solid 1px rgba(255, 255, 255, 1); }
+
+/* Container Styles */
+
+body,
 .wrapper {
-    width: 100%;
-    height: 100vh;
+  width: 100%;
 }
 
-h1 {
-    margin: 0;
-    font-size: 48px;
-    font-weight: lighter;
-    display: inline-block;
-    text-transform: uppercase;
+body,
+.wrapper,
+.frame {
+  height: 100vh;
+}
+
+.menu,
+.frame {
+  top: 0;
 }
 
 .content {
-    padding: 12px;
-    top: 93px;
-    margin-left: 2px;
+  position: relative;
+  padding-left: 118px;
+  overflow-x: scroll;
+  display: inline-block;
+  word-wrap: break-all;
+  overflow-wrap: break-word;
+  opacity: 0;
+  animation: fade 1s;
 }
 
-.logo,
-.loading_screen h1 { margin: 12px; }
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 .white_screen { top: 100%; }
+
+.frame {
+  width: 32px;
+}
+
+.-left {
+  left: 0;
+  background: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) , rgba(0, 0, 0, 0.1)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) , rgba(0, 0, 0, 0.1)); /* Standard syntax */
+}
+
+.-right {
+  right: 0;
+  background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 1)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 1)); /* Standard syntax */
+}
+
+/* Text Styles */
+
+a { text-decoration: none; }
+
+a,
+scpan {
+  padding: 5.5px;
+}
+
+.menu,
+.content,
+.vis {
+  font-family: 'helvetica', sans-serif;
+  font-weight: lighter;
+}
+
+.menu,
+.content {
+  text-transform: uppercase;
+}
+
+.menu,
+.mode_a {
+  font-size: 48px;
+}
+
+.mode_b {
+  font-size: 48px;
+  margin-bottom: 32px;
+}
+
+.symbol {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 32px;
+}
+
+.placeholder {
+  font-style: italic;
+  text-transform: none;
+}
+
+.logo:hover {
+  color: rgba(0, 0, 255, 1);
+  cursor: pointer;
+}
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
 
-/*
- * Hide visually and from screen readers
- */
-
 .hidden {
     display: none !important;
-}
-
-/*
- * Hide only visually, but have it available for screen readers:
- * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- */
-
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-/*
- * Extends the .visuallyhidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
-
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
-}
-
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
-.invisible {
-    visibility: hidden;
-}
-
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.clearfix:after {
-    clear: both;
 }
 
 /* ==========================================================================
@@ -240,96 +200,25 @@ h1 {
    Modify as content requires.
    ========================================================================== */
 
-@media only screen and (max-width: 35em) {
+@media only screen and (max-width: 52em) {
     /* Style adjustments for viewports that meet the condition */
-}
-
-@media print,
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 1.25dppx),
-       (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   http://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-    *,
-    *:before,
-    *:after,
-    *:first-letter,
-    *:first-line {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster:
-                                   http://www.sanbeiji.com/archives/953 */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
     a,
-    a:visited {
-        text-decoration: none;
+    scpan {
+      padding: 4px;
     }
 
-    /*a[href]:after {*/
-    /*    content: " (" attr(href) ")";*/
-    /*}*/
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
+    .menu,
+    .mode_a {
+      font-size: 36px;
     }
 
-    /*
-     * Don't show links that are fragment identifiers,
-     * or use the `javascript:` pseudo protocol
-     */
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
+    .mode_b {
+      font-size: 24px;
     }
 
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    /*
-     * Printing Tables:
-     * http://css-discuss.incutio.com/wiki/Printing_Tables
-     */
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-    
-    h1 {
-        display: inline-block;
+    .content {
+      padding-left: 100px;
+      padding-right: 0;
+      padding-bottom: 0;
     }
 }
